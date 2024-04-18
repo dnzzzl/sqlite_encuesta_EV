@@ -1,0 +1,44 @@
+DROP TABLE if exists Perfil_demografico;
+DROP TABLE if exists Metodo_Transporte;
+DROP TABLE if exists Opinion_Medio_Ambiente;
+DROP TABLE if exists Vehiculos_Electricos;
+
+-- Tabla #1: Demografico 
+
+CREATE TABLE Perfil_demografico (
+    ID_encuestado CHAR(3),
+    Edad TINYINT NOT NULL, 
+    Lugar_Residencia CHAR NOT NULL,
+    Ocupacion CHAR NOT NULL,
+    PRIMARY KEY (ID_encuestado));
+
+-- Tabla #2: Metodo_Transporte 
+    
+CREATE TABLE Metodo_Transporte (
+    ID_encuestado CHAR(3) NOT NULL,
+    Vehiculo_Propio CHAR NOT NULL, 
+    Transporte_Publico CHAR NOT NULL,
+    FOREIGN KEY ( ID_encuestado ) REFERENCES Perfil_demografico (ID_encuestado),
+    UNIQUE (ID_encuestado));
+
+-- Tabla #3: Opinion_Medio_Ambiente 
+
+CREATE TABLE Opinion_Medio_Ambiente (
+    ID_encuestado CHAR(3) NOT NULL,
+    Cambio_Climatico TINYINT,
+    Contaminacion_Vehicular TINYINT NOT NULL,
+    Medidas_Correctivas TEXT NOT NULL,
+    FOREIGN KEY ( ID_encuestado ) REFERENCES Perfil_demografico (ID_encuestado),
+    UNIQUE (ID_encuestado));
+    
+-- Tabla #4: Vehiculos_Electricos
+
+CREATE TABLE Vehiculos_Electricos (
+    ID_encuestado CHAR(3) NOT NULL,
+    Opinion_Vehiculo_Electrico TEXT,
+    Preferencia_Vehiculo_Electrico CHAR NOT NULL,
+    Limitaciones_Vehiculo_Electrico CHAR NOT NULL,
+    FOREIGN KEY ( ID_encuestado ) REFERENCES Perfil_demografico (ID_encuestado),
+    UNIQUE (ID_encuestado));
+    
+-- NOTE: Data was imported from CSV files with the 4 tables. 
